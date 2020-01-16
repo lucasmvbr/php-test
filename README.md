@@ -1,2 +1,2 @@
 # php-test
-Test com jankins
+Test com jenkins
