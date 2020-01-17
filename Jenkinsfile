@@ -17,7 +17,7 @@ node {
          * docker build on the command line 
 
         * app = docker.build("lucasmvbr/php-test") */
-        docker build -t repository.lab.local:5000/php .
+        sh 'docker build -t repository.lab.local:5000/php .'
     }
 
     stage('Push image') {
