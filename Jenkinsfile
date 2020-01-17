@@ -16,7 +16,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line 
 
-        sh 'docker build -t repository.lab.local:5000/php .'
+        sh 'docker build -t repository.lab.local:5000/php:latest .'
     }
 
     stage('Push image') {
