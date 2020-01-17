@@ -16,7 +16,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line 
 
-        sh 'docker build -t repository.lab.local:5000/php:latest .'
+        sh 'docker build -t repository.lab.local:5000/php .'
     }
 
     stage('Push image') {
@@ -24,6 +24,6 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-           sh 'docker push repository.lab.local:5000/php:latest'   
+           sh 'docker push repository.lab.local:5000/php'   
         }
     }
