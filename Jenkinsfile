@@ -14,9 +14,10 @@ node {
 
     stage('Build image') {
         /* This builds the actual image; synonymous to
-         * docker build on the command line */
+         * docker build on the command line 
 
-        app = docker.build("lucasmvbr/php-test")
+        * app = docker.build("lucasmvbr/php-test") */
+        docker build -t repository.lab.local:5000/php .
     }
 
     stage('Push image') {
