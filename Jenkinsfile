@@ -16,7 +16,6 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line 
 
-        * app = docker.build("lucasmvbr/php-test") */
         sh 'docker build -t repository.lab.local:5000/php .'
     }
 
@@ -25,8 +24,6 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-         docker.withRegistry('https://repository.lab.local:5000') {
-           app.push()
+           sh 'docker push repository.lab.local:5000/php'   
         }
     }
-}
