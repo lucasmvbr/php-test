@@ -31,4 +31,13 @@ node {
         }
     }
 
+    stage('List pods') {
+          withKubeConfig([credentialsId: 'k8s-cred',
+                    serverUrl: 'https://kubemaster-01.lab.local:6443',
+                    namespace: 'default'
+                    ]) {
+          sh 'kubectl get pods'
+    }
+  }
+
 }
