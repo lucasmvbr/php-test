@@ -33,7 +33,7 @@ node {
 
     stage('List pods') {
           withKubeConfig([credentialsId: 'k8s-cred',
-                    cluster: 'kubernates',
+                    clusterName: 'kubernates',
                     serverUrl: 'https://192.168.40.10:6443',
                     namespace: 'default'
                     ]) {
