@@ -32,7 +32,7 @@ node {
     }
 
     stage('List pods') {
-          sh '/usr/bin/sed -i "s@repository.lab.local:5000/php@repository.lab.local:5000/php:${env.BUILD_NUMBER}@" php.yaml'
+          #sh '/usr/bin/sed -i "s@repository.lab.local:5000/php@repository.lab.local:5000/php:${env.BUILD_NUMBER}@" php.yaml'
           withKubeConfig([credentialsId: 'k8s-cred',
                     clusterName: 'kubernates',
                     serverUrl: 'https://192.168.40.10:6443',
