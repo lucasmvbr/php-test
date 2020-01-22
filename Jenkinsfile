@@ -32,7 +32,7 @@ node {
     }
 
     stage('update pod') {
-          sh "sed -i -e 's/repository.lab.local:5000/php/repository.lab.local:5000/php:${env.BUILD_NUMBER}/g' php.yaml"
+          sh "sed -i  's/repository.lab.local:5000/php/repository.lab.local:5000/php:${env.BUILD_NUMBER}/g' php.yaml"
           withKubeConfig([credentialsId: 'k8s-cred',
                     clusterName: 'kubernates',
                     serverUrl: 'https://192.168.40.10:6443',
