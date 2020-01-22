@@ -1,0 +1,107 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: php
+  labels:
+    app: myphpapp
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: myphpapp
+    tier: backend
+  type: LoadBalancer
+---
+#kind: PersistentVolume
+#apiVersion: v1
+#metadata:
+#  name: myphpapp-pv
+#  labels:
+#    type: local
+#spec:
+#  storageClassName: manual
+#  capacity:
+#    storage: 1Gi
+#  accessModes:
+#    - ReadWriteOnce
+#  hostPath:
+#    path: "/data/myphpapp"
+#---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: myphpapp-pv-claim
+#  labels:
+#    app: myphpapp
+#spec:
+#  storageClassName: manual
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 1Gi
+#---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php
+  labels:
+    app: myphpapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myphpapp
+      tier: backend
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: myphpapp
+        tier: backend
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - image: repository.lab.local:5000/php
+        name: myphpapp-php
+        env:
+        - name: DBServer
+          value: mariadb
+        - name: DBUser
+          value: demouser
+        - name: DBPassword
+          value: VMware1!
+        - name: DBName
+          value: demo
+        ports:
+        - containerPort: 80
+          name: myphpapp
+        imagePullPolicy: Always
+      #  volumeMounts:
+      #  - name: myphpapp-persistent-storage
+      #    mountPath: /var/www/html
+      #volumes:
+      # - name: myphpapp-persistent-storage
+      #.  persistentVolumeClaim:
+      #    claimName: myphpapp-pv-claim 
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+   name: php
+spec:
+   ingress:
+   - from:
+     - ipBlock:
+          cidr: 0.0.0.0/0
+     ports:
+     - protocol: TCP
+       port: 80
+   egress:
+   podSelector:
+     matchLabels:
+      app: myphpapp
+      tier: backend
+   policyTypes:
