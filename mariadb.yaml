@@ -48,7 +48,7 @@ spec:
       imagePullSecrets:
       - name: regcred
       containers:
-      - image: repository.lab.local:5000/db:1.0
+      - image: repository.lab.local:5000/db
         name: myphpapp-mariadb
         env:
         - name: MYSQL_ROOT_PASSWORD
