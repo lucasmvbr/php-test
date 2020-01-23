@@ -64,7 +64,7 @@ spec:
       imagePullSecrets:
       - name: regcred
       containers:
-      - image: repository.lab.local:5000/php
+      - image: repository.lab.local:5000/php:${env.BUILD_NUMBER}
         name: myphpapp-php
         env:
         - name: DBServer
